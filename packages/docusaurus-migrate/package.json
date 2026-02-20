@@ -1,10 +1,10 @@
 {
   "name": "@docusaurus/migrate",
-  "version": "2.0.0-beta.21",
+  "version": "3.9.2",
   "description": "A CLI tool to migrate from older versions of Docusaurus.",
   "license": "MIT",
   "engines": {
-    "node": ">=16.14"
+    "node": ">=18.0"
   },
   "scripts": {
     "build": "tsc --build",
@@ -24,8 +24,8 @@
   "dependencies": {
     "@babel/core": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
-    "@docusaurus/logger": "2.0.0-beta.21",
-    "@docusaurus/utils": "2.0.0-beta.21",
+    "@docusaurus/logger": "3.9.2",
+    "@docusaurus/utils": "3.9.2",
     "@mapbox/hast-util-to-jsx": "^2.0.0",
     "color": "^4.2.3",
     "commander": "^5.1.0",

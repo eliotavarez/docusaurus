@@ -7,7 +7,6 @@
 // @ts-check
 
 const path = require('path');
-const math = require('remark-math');
 const npm2yarn = require('@docusaurus/remark-plugin-npm2yarn');
 const versions = require('./versions.json');
 const VersionsArchived = require('./versionsArchived.json');
@@ -20,20 +19,6 @@ const ArchivedVersionsDropdownItems = Object.entries(VersionsArchived).splice(
   0,
   5,
 );
-
-// This probably only makes sense for the beta phase, temporary
-function getNextBetaVersionName() {
-  const expectedPrefix = '2.0.0-beta.';
-
-  const lastReleasedVersion = versions[0];
-  if (!lastReleasedVersion || !lastReleasedVersion.includes(expectedPrefix)) {
-    throw new Error(
-      'this code is only meant to be used during the 2.0 beta phase.',
-    );
-  }
-  const version = parseInt(lastReleasedVersion.replace(expectedPrefix, ''), 10);
-  return `${expectedPrefix}${version + 1}`;
-}
 
 const allDocHomesPaths = [
   '/docs/',
@@ -296,7 +281,7 @@ const config = {
           },
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
-          remarkPlugins: [math, [npm2yarn, {sync: true}]],
+          remarkPlugins: [[npm2yarn, {sync: true}]],
           rehypePlugins: [],
           disableVersioning: isVersioningDisabled,
           lastVersion: isDev || isDeployPreview ? 'current' : undefined,
@@ -310,7 +295,7 @@ const config = {
           })(),
           versions: {
             current: {
-              label: `${getNextBetaVersionName()} 🚧`,
+              label: `${versions[0]} 🚧`,
             },
           },
         },
@@ -608,7 +593,10 @@ async function createConfig() {
   const lightTheme = (await import('./src/utils/prismLight.mjs')).default;
   const darkTheme = (await import('./src/utils/prismDark.mjs')).default;
   const katex = (await import('rehype-katex')).default;
+  const math = (await import('remark-math')).default;
   config.plugins?.push(FeatureRequestsPlugin);
+  // @ts-expect-error: we know it exists, right
+  config.presets[0][1].docs.remarkPlugins.unshift(math);
   // @ts-expect-error: we know it exists, right
   config.presets[0][1].docs.remarkPlugins.push(configTabs);
   // @ts-expect-error: we know it exists, right

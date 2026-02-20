@@ -1,6 +1,6 @@
 {
   "name": "@docusaurus/remark-plugin-npm2yarn",
-  "version": "2.0.0-beta.21",
+  "version": "3.9.2",
   "description": "Remark plugin for converting npm commands to Yarn commands as tabs.",
   "main": "lib/index.js",
   "publishConfig": {
@@ -28,6 +28,6 @@
     "to-vfile": "^6.1.0"
   },
   "engines": {
-    "node": ">=16.14"
+    "node": ">=18.0"
   }
 }

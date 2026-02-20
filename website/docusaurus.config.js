@@ -295,7 +295,7 @@ const config = {
           })(),
           versions: {
             current: {
-              label: `${versions[0]} 🚧`,
+              label: 'Next 🚧',
             },
           },
         },
@@ -596,9 +596,11 @@ async function createConfig() {
   const math = (await import('remark-math')).default;
   config.plugins?.push(FeatureRequestsPlugin);
   // @ts-expect-error: we know it exists, right
-  config.presets[0][1].docs.remarkPlugins.unshift(math);
-  // @ts-expect-error: we know it exists, right
-  config.presets[0][1].docs.remarkPlugins.push(configTabs);
+  const docsRemarkPlugins = config.presets[0][1].docs.remarkPlugins;
+  if (Array.isArray(docsRemarkPlugins)) {
+    docsRemarkPlugins.unshift(math);
+    docsRemarkPlugins.push(configTabs);
+  }
   // @ts-expect-error: we know it exists, right
   config.themeConfig.prism.theme = lightTheme;
   // @ts-expect-error: we know it exists, right
